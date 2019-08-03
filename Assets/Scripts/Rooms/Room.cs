@@ -95,7 +95,6 @@ public enum COMPASS_DIR
     SOUTHEAST = 2,
     SOUTHWEST = 3
 }
-
 public class Room : MonoBehaviour
 {
     public Transform torchContainer;
@@ -189,7 +188,5 @@ public class Room : MonoBehaviour
         
         return newRoom;
     }
-    
     // Room Statics
-    
 }
