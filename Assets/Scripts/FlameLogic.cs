@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void FlameJump(TorchLogic from, TorchLogic to);
 public class FlameLogic : MonoBehaviour
 {
     TorchLogic target;
     const float TORCH_OFFSET_Y = 0.3f;
-
+    Vector3 lastFramePos;
+    Vector3 mouseVelocity;
+    public static FlameJump onFlameJump;
     // Start is called before the first frame update
     void Start()
     {
-        
+        lastFramePos = Input.mousePosition;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -39,8 +43,21 @@ public class FlameLogic : MonoBehaviour
         {
             JumpToTarget(CameraPost.GetXZNormalizedVector(direction));
         }
+        CheckMouseSnap();
         if (target == null) return;
         transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up * TORCH_OFFSET_Y, 10 * Time.deltaTime);
+    }
+    void CheckMouseSnap()
+    {
+        Vector3 delta = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
+        mouseVelocity *= 0.5f;
+        mouseVelocity += delta;
+        lastFramePos = Input.mousePosition;
+        if (mouseVelocity.magnitude > 10)
+        {
+            JumpToTarget(CameraPost.GetXZNormalizedVector(mouseVelocity));
+            mouseVelocity = Vector3.zero;
+        }
     }
     void JumpToTarget(Vector3 direction)
     {
@@ -60,6 +77,8 @@ public class FlameLogic : MonoBehaviour
         }
         if(target!=null)
             target.SetOff();
+        if (onFlameJump != null)
+            onFlameJump(target, TorchLogic.torches[closestIndex]);
         target = TorchLogic.torches[closestIndex];
         target.SetOn();
     }
