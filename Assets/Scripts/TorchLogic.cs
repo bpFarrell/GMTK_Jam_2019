@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TorchLogic : IRoomObject
+public class TorchLogic : MonoBehaviour, IRoomObject
 {
     public static List<TorchLogic> torches = new List<TorchLogic>();
     private void OnEnable()
