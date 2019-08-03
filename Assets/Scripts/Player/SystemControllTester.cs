@@ -9,7 +9,6 @@ public class SystemControllTester : MonoBehaviour
 
     private void Awake()
     {
-        PlayerCallbacks.PlayerGoToDone += GoToDone; 
     }
 
     // Start is called before the first frame update
@@ -23,7 +22,7 @@ public class SystemControllTester : MonoBehaviour
     void Update()
     {
         if (once) {
-            movement.GoTo(Vector3.zero);
+            movement.GoTo(Vector3.zero, GoToDone);
             once = false;
         }
     }
