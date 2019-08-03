@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3981666049648600570}
   - component: {fileID: 2063905836400804036}
   - component: {fileID: 7943464262241879265}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 1603395429044347487}
   - component: {fileID: 2422563766403145123}
   - component: {fileID: 1394197853932488993}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 760400676882405138}
   - component: {fileID: 3146167223858419138}
   - component: {fileID: 2846775261514282657}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 7820936196958950136}
   - component: {fileID: 8028207345647370044}
   - component: {fileID: 880189257668456539}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2408344284723603549}
   - component: {fileID: 8060826794525487881}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
