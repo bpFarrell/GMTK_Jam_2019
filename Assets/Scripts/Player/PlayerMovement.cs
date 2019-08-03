@@ -58,7 +58,12 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
             }
         }
 
-       
+        MoveTwards(dir);
+
+
+    }
+
+    private void MoveTwards(Vector3 dir) {
         if (dir.magnitude > 0)
         {
             dir = dir.normalized;
@@ -74,7 +79,7 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
             transform.position = transform.position + targetDir;
             if (transform.position.y != PLAYERHEIGHT)
                 transform.position = new Vector3(transform.position.x, PLAYERHEIGHT, transform.position.z);
-            Rigidbody rigidbody = this.GetComponent < Rigidbody >();
+            Rigidbody rigidbody = this.GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
         }
