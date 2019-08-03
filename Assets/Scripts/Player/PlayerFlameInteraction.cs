@@ -56,7 +56,7 @@ public class PlayerFlameInteraction : MonoBehaviour
     bool CheckLOS() {
         RaycastHit hit;
         var rayDirection = flame.transform.position - transform.position;
-        if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, ~(1 << 13)))
+        if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, ~((1 << 13) + (1 << 9))))
         {
             if (ReferenceEquals(hit.transform, flame.transform))
             {
