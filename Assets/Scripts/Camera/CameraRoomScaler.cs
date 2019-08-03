@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraRoomScaler : MonoBehaviour
+public class CameraRoomScaler : SingletonMonoBehaviour<CameraRoomScaler>
 {
     public Camera mainCamera;
     private const float magicFloat = .59f; 
