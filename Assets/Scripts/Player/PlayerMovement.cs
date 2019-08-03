@@ -21,19 +21,19 @@ public class PlayerMovement : MonoBehaviour
         Vector3 dir = Vector3.zero;
         if (Input.GetKey("w"))
         {
-            dir += GetXZNormalizedVector(Camera.main.transform.forward);
+            dir += CameraPost.GetXZNormalizedVector(Vector3.forward);
         }
         if (Input.GetKey("s"))
         {
-            dir += GetXZNormalizedVector(-Camera.main.transform.forward);
+            dir += CameraPost.GetXZNormalizedVector(-Vector3.forward);
         }
         if (Input.GetKey("a"))
         {
-            dir += GetXZNormalizedVector(-Camera.main.transform.right);
+            dir += CameraPost.GetXZNormalizedVector(Vector3.left);
         }
         if (Input.GetKey("d"))
         {
-            dir += GetXZNormalizedVector(Camera.main.transform.right);
+            dir += CameraPost.GetXZNormalizedVector(Vector3.right);
         }
 
         if (dir.magnitude > 0)
