@@ -37,7 +37,7 @@ public class FlameLogic : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            JumpToTarget(direction);
+            JumpToTarget(CameraPost.GetXZNormalizedVector(direction));
         }
         if (target == null) return;
         transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up * TORCH_OFFSET_Y, 10 * Time.deltaTime);
