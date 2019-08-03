@@ -109,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 528041fb5c7a7a74dac66f18c7cd52f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moddedMoveSpeed: 3
-  moddedTurnSpeed: 3
+  moddedMoveSpeed: 1
+  moddedTurnSpeed: 10
+  faceScaleClamp: 0
 --- !u!54 &5215243790319977035
 Rigidbody:
   m_ObjectHideFlags: 0
