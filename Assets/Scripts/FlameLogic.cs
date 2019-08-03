@@ -59,4 +59,13 @@ public class FlameLogic : MonoBehaviour
         }
         target = TorchLogic.torches[closestIndex].gameObject;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        IEnemy enemey = other.GetComponent<IEnemy>();
+        if (enemey != null)
+        {
+            enemey.Hit();
+        }
+    }
+
 }
