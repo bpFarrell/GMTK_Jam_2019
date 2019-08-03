@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
         GenericSystemControlled,
         GoTo,
         Animation
-        
     }
 
     // Start is called before the first frame update
@@ -56,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
             if ((transform.position - new Vector3(destination.x, PLAYERHEIGHT, destination.z)).magnitude <= 0.01) {
                 playerState = state.GenericSystemControlled;
                 PlayerCallbacks.PlayerGoToDone?.Invoke();
+                PlayerCallbacks.PlayerGoToDone = null;
             }
         }
 
@@ -106,8 +106,10 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = GetYOnlyQuaternion(transform.rotation);
     }
 
-    public void GoTo(Vector3 destination)
+    public void GoTo(Vector3 destination, System.Action goToDone)
     {
+        if (PlayerCallbacks.PlayerGoToDone != null) return;
+        PlayerCallbacks.PlayerGoToDone = goToDone;
         playerState = state.GoTo;
         this.destination = destination;
 
