@@ -7,7 +7,7 @@ public class Room : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("Is it Gitting now?");
     }
 
     // Update is called once per frame
