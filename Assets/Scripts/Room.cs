@@ -132,7 +132,8 @@ public class Room : MonoBehaviour
         }
     }
 
-    private const string PREFABRESOURCEPATH = "Room";
+    private const string PREFABRESOURCEPATH_ROOM = "Room";
+    private const string PREFABRESOURCEPATH_DOOR = "Door";
     
     public Room CreateNeighbor( COMPASS_DIR dir )
     {
@@ -142,11 +143,27 @@ public class Room : MonoBehaviour
             return null;
         }
         COMPASS_DIR opDir = (COMPASS_DIR) (((int) dir + 2) % 4);
-        Room room = Instantiate(Resources.Load<Room>(PREFABRESOURCEPATH));
+        Room room = Instantiate(Resources.Load<Room>(PREFABRESOURCEPATH_ROOM));
         if (room == null) {
-            Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH});", this);
+            Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_ROOM});", this);
             return null;
         }
+
+        Door door = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR));
+        if(door == null)
+        {
+            Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
+            return null;
+        }
+        door.dir = dir;
+
+        Door opDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR));
+        if (opDoor == null)
+        {
+            Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
+            return null;
+        }
+        opDoor.dir = opDir;
 
         room.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size + .5f));
         
