@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FlameLogic : MonoBehaviour
 {
-    GameObject target;
+    TorchLogic target;
     const float TORCH_OFFSET_Y = 0.3f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +58,10 @@ public class FlameLogic : MonoBehaviour
                 closestIndex = x;
             }
         }
-        target = TorchLogic.torches[closestIndex].gameObject;
+        if(target!=null)
+            target.SetOff();
+        target = TorchLogic.torches[closestIndex];
+        target.SetOn();
     }
     private void OnTriggerEnter(Collider other)
     {
