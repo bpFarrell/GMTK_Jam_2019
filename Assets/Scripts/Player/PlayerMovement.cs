@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
 {
     public float moddedMoveSpeed = 1;
     public float moddedTurnSpeed = 1;
@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float PLAYERHEIGHT = 0;
     private Vector3 destination;
-
 
     public enum state {
         PlayerControlled,
