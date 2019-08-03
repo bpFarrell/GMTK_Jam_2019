@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour, IEnemy
+public class TestEnemy :  IEnemy, IRoomObject
 {
-    public void Hit()
+    public override void Hit()
     {
-        Destroy(gameObject);
+        Kill();
     }
 
+    public void OnRoomTransitionIn(Room room)
+    {
+        activeEnemyCount++;
+    }
+
+    public void OnRoomTransitionOut(Room room)
+    {
+        activeEnemyCount--;
+    }
 }

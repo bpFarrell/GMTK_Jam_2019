@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemySlime : MonoBehaviour, IEnemy
+public class EnemySlime : IEnemy, IRoomObject
 {
     public float moveSpeed;
     public float jumpSpeed = 5;
@@ -13,8 +13,9 @@ public class EnemySlime : MonoBehaviour, IEnemy
     float startY;
     float startScale;
     bool isDying;
+    bool isPaused;
     float timeOfDeath;
-    public void Hit()
+    public override void Hit()
     {
         JuiceManager.Hang(3);
         isDying = true;
@@ -29,6 +30,7 @@ public class EnemySlime : MonoBehaviour, IEnemy
     // Start is called before the first frame update
     void Start()
     {
+        activeEnemyCount++;
         startY = transform.position.y;
         startScale = transform.localScale.y;
     }
@@ -36,7 +38,7 @@ public class EnemySlime : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
-
+        if (isPaused) return;
         if (isDying)
         {
             Dying();
@@ -65,6 +67,18 @@ public class EnemySlime : MonoBehaviour, IEnemy
         float t = (Time.time - timeOfDeath)*3;
         material.SetFloat("_Death", t);
         if (t > 1)
-            Destroy(gameObject);
+            Kill();
+    }
+
+    public void OnRoomTransitionOut(Room room)
+    {
+        activeEnemyCount--;
+        isPaused = true;
+    }
+
+    public void OnRoomTransitionIn(Room room)
+    {
+        activeEnemyCount++;
+        isPaused = false;
     }
 }
