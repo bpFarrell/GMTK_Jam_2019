@@ -72,6 +72,9 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
             //float faceScale = faceScaleFtoD <= faceScaleDtoF ? faceScaleFtoD : faceScaleDtoF;
             Vector3 targetDir = GetXZNormalizedVector(transform.forward) * moddedMoveSpeed * Time.deltaTime * faceScale;
             transform.position = transform.position + targetDir;
+            Rigidbody rigidbody = this.GetComponent < Rigidbody >();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
         }
         else
         {
@@ -81,6 +84,10 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
             {
                 transform.position = new Vector3(transform.position.x, PLAYERHEIGHT, transform.position.z);
             }
+            Rigidbody rigidbody = this.GetComponent<Rigidbody>();
+
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
         }
     }
 
