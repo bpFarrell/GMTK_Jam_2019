@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class CameraPost : MonoBehaviour
 {
+    
     Camera cam;
     public Material mat;
     private static CameraPost instance;

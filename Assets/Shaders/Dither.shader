@@ -4,6 +4,7 @@
     {
 		_MainTex("Texture", 2D) = "white" {}
 		_Noise("Noise", 2D) = "white" {}
+		_Exposure("Exposire",Vector) = (0.3,0.6,0,0)
     }
     SubShader
     {
@@ -40,7 +41,7 @@
 
 			sampler2D _MainTex;
 			sampler2D _Noise;
-
+			float4 _Exposure;
 			float desaturate(float3 clr) {
 				return dot(float3(0.3, 0.59, 0.11), clr);
 			}
@@ -50,7 +51,7 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
                 fixed n = tex2D(_Noise, i.uv* _ScreenParams.xy/64);
 				fixed d = desaturate(col.xyz);
-				d = smoothstep(0.3, 0.6, d);
+				d = smoothstep(_Exposure.x - _Exposure.y, _Exposure.x +_Exposure.y, d);
                 return fixed4(1,1,1,1)*(d>n);
             }
             ENDCG
