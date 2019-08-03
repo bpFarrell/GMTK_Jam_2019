@@ -35,7 +35,7 @@ public class Door : MonoBehaviour, IRoomObject
             Debug.LogWarning("NULL_PARENT", this); 
             return;
         }
-
+        
         // transition to room pointed by dir. 
     }
 

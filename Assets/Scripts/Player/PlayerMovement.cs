@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moddedMoveSpeed = 1;
     public float moddedTurnSpeed = 1;
+    public float faceScaleClamp = 0;
     private float PLAYERHEIGHT = 0;
  
     // Start is called before the first frame update
@@ -40,7 +41,9 @@ public class PlayerMovement : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
             Quaternion rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * moddedTurnSpeed);
             transform.rotation = GetYOnlyQuaternion(rotation);
-            float faceScale = (1 + Vector3.Dot(GetXZNormalizedVector(transform.forward), dir.normalized)) /2;
+            float faceScale =  Vector3.Dot(GetXZNormalizedVector(transform.forward), dir.normalized);
+            if (faceScale < faceScaleClamp)
+                faceScale = 0;
           //  float faceScaleDtoF = 180 - Vector3.Dot(dir.normalized, GetXZNormalizedVector(transform.forward));
             //float faceScale = faceScaleFtoD <= faceScaleDtoF ? faceScaleFtoD : faceScaleDtoF;
             Vector3 targetDir = GetXZNormalizedVector(transform.forward) * moddedMoveSpeed * Time.deltaTime * faceScale;

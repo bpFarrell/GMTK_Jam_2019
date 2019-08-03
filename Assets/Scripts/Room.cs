@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -79,6 +77,15 @@ public class CardinalRooms
                 throw new ArgumentOutOfRangeException(nameof(dir), dir, null);
         }
     }
+
+    public static COMPASS_DIR GetOppositeDir(COMPASS_DIR dir)
+    {
+        return GetOppositeDir((int)dir);
+    }
+    public static COMPASS_DIR GetOppositeDir(int dir)
+    {
+        return (COMPASS_DIR) ((dir + 2) % 4);
+    }
 }
 
 public enum COMPASS_DIR
@@ -91,6 +98,9 @@ public enum COMPASS_DIR
 
 public class Room : MonoBehaviour
 {
+    public Transform torchContainer;
+    public Transform doorContainer;
+    
     public CardinalRooms rooms = new CardinalRooms();
     public IRoomObject[] roomObjects;
     
@@ -111,8 +121,11 @@ public class Room : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Room room = rooms.Get(i);
+            COMPASS_DIR opDir = CardinalRooms.GetOppositeDir(i);
             if (room == null) continue;
-            Gizmos.DrawLine(transform.position, room.transform.position);
+            Vector3 myEdgeCenter = this.transform.position + (CardinalRooms.GetDir(i    ) * (size * .5f));
+            Vector3 toEdgeCenter = room.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
+            Gizmos.DrawLine(myEdgeCenter, toEdgeCenter);
         }
     }
 
@@ -142,35 +155,39 @@ public class Room : MonoBehaviour
             Debug.LogError("Room already created.");
             return null;
         }
-        COMPASS_DIR opDir = (COMPASS_DIR) (((int) dir + 2) % 4);
-        Room room = Instantiate(Resources.Load<Room>(PREFABRESOURCEPATH_ROOM));
-        if (room == null) {
+
+        COMPASS_DIR opDir = CardinalRooms.GetOppositeDir(dir);
+        Room newRoom = Instantiate(Resources.Load<Room>(PREFABRESOURCEPATH_ROOM));
+        if (newRoom == null) {
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_ROOM});", this);
             return null;
         }
 
-        Door door = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR));
-        if(door == null)
+        Door myDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR), doorContainer);
+        if(myDoor == null)
         {
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
             return null;
         }
-        door.dir = dir;
 
-        Door opDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR));
-        if (opDoor == null)
+        myDoor.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+        myDoor.dir = dir;
+
+        Door newDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR), newRoom.doorContainer);
+        if (newDoor == null)
         {
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
             return null;
         }
-        opDoor.dir = opDir;
+        newDoor.transform.position = newRoom.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
+        newDoor.dir = opDir;
 
-        room.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size + .5f));
+        newRoom.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size + .5f));
         
-        room.rooms.Set(opDir, this);
-        this.rooms.Set(dir, room);
+        newRoom.rooms.Set(opDir, this);
+        this.rooms.Set(dir, newRoom);
         
-        return room;
+        return newRoom;
     }
     
     // Room Statics
