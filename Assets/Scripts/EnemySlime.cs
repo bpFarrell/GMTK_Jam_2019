@@ -26,12 +26,13 @@ public class EnemySlime : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
+        
         Vector3 pos = transform.position;
         float sin = Mathf.Clamp01(Mathf.Sin(Time.time * jumpSpeed)) * 0.1f;
         pos.y = startY;
         if (sin > 0)
         {
-            pos = Vector3.MoveTowards(pos, targat.transform.position, moveSpeed * Time.deltaTime);
+            pos = Vector3.MoveTowards(pos, PlayerMovement.Instance.transform.position, moveSpeed * Time.deltaTime);
         }
         pos.y += sin;
         transform.position = pos;

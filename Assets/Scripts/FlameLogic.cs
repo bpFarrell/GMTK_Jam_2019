@@ -6,6 +6,7 @@ public delegate void FlameJump(TorchLogic from, TorchLogic to);
 public enum FlameLogicState
 {
     Active,
+    Jumping,
     Locked
 }
 public class FlameLogic : MonoBehaviour
@@ -14,7 +15,7 @@ public class FlameLogic : MonoBehaviour
     const float TORCH_OFFSET_Y = 0.3f;
     Vector3 lastFramePos;
     Vector3 mouseVelocity;
-    FlameLogicState state = FlameLogicState.Active;
+    public FlameLogicState state = FlameLogicState.Active;
     TrailRenderer tr;
     public static FlameJump onFlameJump;
     // Start is called before the first frame update
@@ -40,7 +41,17 @@ public class FlameLogic : MonoBehaviour
     void Update()
     {
         if (state == FlameLogicState.Locked) return;
-        CheckMouseSnap();
+        if(state == FlameLogicState.Active)
+        {
+
+            CheckMouseSnap();
+        }
+        else
+        {
+            float dist = Vector3.Distance(transform.position, target.transform.position);
+            if (dist < 0.001f+ TORCH_OFFSET_Y)
+                state = FlameLogicState.Active;
+        }
         if (target == null) return;
         transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up * TORCH_OFFSET_Y, 10 * Time.deltaTime);
     }
@@ -78,6 +89,8 @@ public class FlameLogic : MonoBehaviour
             onFlameJump(target, TorchLogic.torches[closestIndex]);
         target = TorchLogic.torches[closestIndex];
         target.SetOn();
+        Instantiate(Resources.Load("PopEffect"), transform.position, Quaternion.identity);
+        state = FlameLogicState.Jumping;
     }
     private void OnTriggerEnter(Collider other)
     {
