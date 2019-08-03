@@ -10,7 +10,10 @@ public class RoomEditor : Editor {
     {
         Room script = (Room) target;
 
+        script.torchContainer = EditorGUILayout.ObjectField("Torch Container", script.torchContainer, typeof(Transform), true) as Transform;
+        script.doorContainer = EditorGUILayout.ObjectField("Door Container", script.doorContainer, typeof(Transform), true) as Transform;
 
+        GUILayout.Space(20f);
         GUILayout.BeginHorizontal();
         
         GUILayout.BeginVertical();
@@ -27,7 +30,6 @@ public class RoomEditor : Editor {
 
         GUILayout.EndVertical();
         GUILayout.Space(80f);
-            
         GUILayout.BeginVertical();
             
         if (GUILayout.Button("NorthEast")) {
@@ -42,7 +44,6 @@ public class RoomEditor : Editor {
         EditorGUILayout.ObjectField( script.rooms.nw, typeof(Room), true);
 
         GUILayout.EndVertical();
-
     
         GUILayout.EndHorizontal();
     }
