@@ -36,6 +36,7 @@ public class Door : MonoBehaviour, IRoomObject
             return;
         }
         
+        RuntimeManager.SetState(RuntimeManager.GameState.ROOMCHANGE);
         // transition to room pointed by dir. 
     }
 
