@@ -3,46 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void FlameJump(TorchLogic from, TorchLogic to);
+public enum FlameLogicState
+{
+    Active,
+    Locked
+}
 public class FlameLogic : MonoBehaviour
 {
     TorchLogic target;
     const float TORCH_OFFSET_Y = 0.3f;
     Vector3 lastFramePos;
     Vector3 mouseVelocity;
+    FlameLogicState state = FlameLogicState.Active;
+    TrailRenderer tr;
     public static FlameJump onFlameJump;
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+    }
+    private void OnDisable()
+    {
+
+        RuntimeManager.Play.Enter -= OnAnimationComplete;
+        RuntimeManager.Play.Exit -= OnAnimationStart;
+    }
     void Start()
     {
+        tr = GetComponent<TrailRenderer>();
         lastFramePos = Input.mousePosition;
         Cursor.lockState = CursorLockMode.Locked;
+        RuntimeManager.Play.Enter += OnAnimationComplete;
+        RuntimeManager.Play.Exit += OnAnimationStart;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = Vector3.zero;
-
-        if (Input.GetKey(KeyCode.W)){
-            direction.z += 1;
-        }
-
-        if (Input.GetKey(KeyCode.A)){
-
-            direction.x -= 1;
-        }
-
-        if (Input.GetKey(KeyCode.S)){
-
-            direction.z -= 1;
-        }
-        if (Input.GetKey(KeyCode.D)){
-
-            direction.x += 1;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            JumpToTarget(CameraPost.GetXZNormalizedVector(direction));
-        }
+        if (state == FlameLogicState.Locked) return;
         CheckMouseSnap();
         if (target == null) return;
         transform.position = Vector3.Lerp(transform.position, target.transform.position + Vector3.up * TORCH_OFFSET_Y, 10 * Time.deltaTime);
@@ -89,6 +86,16 @@ public class FlameLogic : MonoBehaviour
         {
             enemey.Hit();
         }
+    }
+    private void OnAnimationStart()
+    {
+        tr.Clear();
+        state = FlameLogicState.Locked;
+    }
+    private void OnAnimationComplete()
+    {
+        tr.Clear();
+        state = FlameLogicState.Active;
     }
 
 }
