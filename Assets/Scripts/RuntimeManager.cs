@@ -1,34 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-public class RuntimeManager : MonoBehaviour
+public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
 {
-    private static RuntimeManager _Instance = null;
-    public static RuntimeManager Instance
-    {
-        get
-        {
-            if (_Instance == null)
-            {
-                
-                RuntimeManager[] runtimes = FindObjectsOfType<RuntimeManager>();
-                if (runtimes.Length > 1) {
-                    Debug.LogError("Multiple RuntimeManager found in scene");
-                    for (int i = runtimes.Length - 1; i > 0; i--) {
-                        Destroy(runtimes[i].gameObject);
-                    }
-                }
-                if (runtimes.Length == 0)
-                {
-                    Debug.LogError("No RuntimeManager found in scene");
-                    return null;
-                }
-                _Instance = runtimes[0];
-            }
-            return _Instance;
-        }
-    }
-
     private static void StateLog(GameState state) {
         Debug.Log("StateChangeEvent | " + state);
     }

@@ -12,14 +12,14 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
             if (_Instance != null) return _Instance;
             T[] runtimes = FindObjectsOfType<T>();
             if (runtimes.Length > 1) {
-                Debug.LogError("Multiple RuntimeManager found in scene");
+                Debug.LogError($"Multiple {typeof(T)} found in scene");
                 for (int i = runtimes.Length - 1; i > 0; i--) {
                     Destroy(runtimes[i].gameObject);
                 }
             }
             if (runtimes.Length == 0)
             {
-                Debug.LogError("No RuntimeManager found in scene");
+                Debug.LogError($"No {typeof(T)} found in scene");
                 return null;
             }
             _Instance = runtimes[0];
