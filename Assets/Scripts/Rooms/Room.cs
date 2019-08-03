@@ -122,18 +122,26 @@ public class Room : MonoBehaviour
             Room room = rooms.Get(i);
             COMPASS_DIR opDir = CardinalRooms.GetOppositeDir(i);
             if (room == null) continue;
-            Vector3 myEdgeCenter = this.transform.position + (CardinalRooms.GetDir(i    ) * (size * .5f));
-            Vector3 toEdgeCenter = room.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
+            Vector3 myEdgeCenter = this.FindEdge(i);
+            Vector3 toEdgeCenter = room.FindEdge(opDir);
             Gizmos.DrawLine(myEdgeCenter, toEdgeCenter);
         }
     }
 
+    public Vector3 FindEdge(COMPASS_DIR dir) {
+        return this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+    }
+    public Vector3 FindEdge(int dir) {
+        return this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+    }
+    
     public void Initialize()
     {
         foreach (IRoomObject roomObject in roomObjects)
         {
             roomObject.OnRoomTransitionIn(this);
         }
+        gameObject.SetActive(true);
     }
 
     public void DeInitialize()
@@ -142,6 +150,7 @@ public class Room : MonoBehaviour
         {
             roomObject.OnRoomTransitionOut(this);
         }
+        gameObject.SetActive(false);
     }
 
     private const string PREFABRESOURCEPATH_ROOM = "Room";

@@ -7,6 +7,8 @@ public class Door : MonoBehaviour, IRoomObject
     public COMPASS_DIR dir;
     public Room parent;
 
+    public Room TargetRoom => this.parent.rooms.Get(this.dir);
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -20,7 +22,6 @@ public class Door : MonoBehaviour, IRoomObject
         {
             Debug.LogWarning("NULL_PARENT", this);
         }
-
     }
 
     public void OnRoomTransitionOut(Room room)
@@ -35,8 +36,7 @@ public class Door : MonoBehaviour, IRoomObject
             Debug.LogWarning("NULL_PARENT", this); 
             return;
         }
-        
-        RuntimeManager.SetState(RuntimeManager.GameState.ROOMCHANGE);
+        RoomManager.Instance.SetRoom(this);
         // transition to room pointed by dir. 
     }
 
