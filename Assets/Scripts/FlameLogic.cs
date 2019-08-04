@@ -19,7 +19,8 @@ public class FlameLogic : MonoBehaviour
     TrailRenderer tr;
     public static FlameJump onFlameJump;
     // Start is called before the first frame update
-    private void OnEnable()
+    private void OnEnable() 
+
     {
     }
     private void OnDisable()
@@ -58,6 +59,13 @@ public class FlameLogic : MonoBehaviour
     void CheckMouseSnap()
     {
         Vector3 delta = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
+        Vector3 stick = new Vector3(Input.GetAxis("RightH"), 0, -Input.GetAxis("RightV"));
+
+        if (stick.magnitude > 0.8)
+        {
+            Debug.Log(stick);
+            JumpToTarget(CameraPost.GetXZNormalizedVector(stick));
+        }
         mouseVelocity *= 0.5f;
         mouseVelocity += delta;
         lastFramePos = Input.mousePosition;
@@ -84,15 +92,8 @@ public class FlameLogic : MonoBehaviour
                 closestDot = nowDot;
                 closestIndex = x;
             }
+            SetTarget(TorchLogic.torches[closestIndex]);
         }
-        if(target!=null)
-            target.SetOff();
-        if (onFlameJump != null)
-            onFlameJump(target, TorchLogic.torches[closestIndex]);
-        target = TorchLogic.torches[closestIndex];
-        target.SetOn();
-        Instantiate(Resources.Load("PopEffect"), transform.position, Quaternion.identity);
-        state = FlameLogicState.Jumping;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -112,7 +113,38 @@ public class FlameLogic : MonoBehaviour
         tr.Clear();
         state = FlameLogicState.Active;
     }
+    public void Teleport(Vector3 postition)
+    {
+        transform.position = postition;
+        tr.Clear();
+    }
+    public void TargetClosestToPosition(Vector3 position)
+    {
+        float nearestDist = float.MaxValue;
+        int nearestIndex = 0;
+        for(int x = 0; x < TorchLogic.torches.Count; x++)
+        {
+            float dist = Vector3.Distance(position, TorchLogic.torches[x].transform.position);
+            if (dist < nearestDist)
+            {
+                nearestDist = dist;
+                nearestIndex = x;
+            }
+        }
+        SetTarget(TorchLogic.torches[nearestIndex]);
+    }
+    public void SetTarget(TorchLogic tl)
+    {
 
+        if (target != null)
+            target.SetOff();
+        if (onFlameJump != null)
+            onFlameJump(target, tl);
+        target = tl;
+        target.SetOn();
+        Instantiate(Resources.Load("PopEffect"), transform.position, Quaternion.identity);
+        state = FlameLogicState.Jumping;
+    }
     bool CheckLOS(GameObject torch)
     {
         RaycastHit hit;
