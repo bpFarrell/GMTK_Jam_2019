@@ -11,13 +11,7 @@ public class LockedDoorLogic : MonoBehaviour
     public float shakeAmount = 1;
     public float shakeSpeed = 20;
     public Door door;
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (door.dir == COMPASS_DIR.NORTHWEST || door.dir == COMPASS_DIR.SOUTHEAST)
-            transform.Rotate(0, 90, 0);
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

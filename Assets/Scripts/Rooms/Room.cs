@@ -100,6 +100,7 @@ public class Room : MonoBehaviour
 {
     public Transform torchContainer;
     public Transform doorContainer;
+    public Transform floorTransform;
 
     public CardinalRooms rooms = new CardinalRooms();
     private IRoomObject[] _roomObjects;
@@ -121,7 +122,7 @@ public class Room : MonoBehaviour
 // Characteristics
     public float size
     {
-        get { return transform.localScale.x; }
+        get { return Mathf.Max(floorTransform.localScale.x, floorTransform.localScale.z); }
     }
 
     private void OnDrawGizmos()
@@ -138,11 +139,17 @@ public class Room : MonoBehaviour
         }
     }
 
-    public Vector3 FindEdge(COMPASS_DIR dir) {
-        return this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+    public Vector3 FindEdge(COMPASS_DIR dir)
+    {
+        Vector3 vectorMask = CardinalRooms.GetDir(dir);
+        Vector3 val = new Vector3(vectorMask.x * floorTransform.localScale.x, 0, vectorMask.z * floorTransform.localScale.z);
+        return this.transform.position + (val * .5f);
     }
-    public Vector3 FindEdge(int dir) {
-        return this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+    public Vector3 FindEdge(int dir)
+    {
+        Vector3 vectorMask = CardinalRooms.GetDir(dir);
+        Vector3 val = new Vector3(vectorMask.x * floorTransform.localScale.x, 0, vectorMask.z * floorTransform.localScale.z);
+        return this.transform.position + (val * .5f);
     }
     
     public void Initialize()
@@ -193,6 +200,8 @@ public class Room : MonoBehaviour
         myDoor.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
         myDoor.parent = this;
         myDoor.dir = dir;
+        if (myDoor.dir == COMPASS_DIR.NORTHEAST || myDoor.dir == COMPASS_DIR.SOUTHWEST)
+            myDoor.transform.Rotate(0, 90, 0);
 
         Door newDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR), newRoom.doorContainer);
         if (newDoor == null)
@@ -203,6 +212,8 @@ public class Room : MonoBehaviour
         newDoor.transform.position = newRoom.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
         newDoor.parent = newRoom;
         newDoor.dir = opDir;
+        if (newDoor.dir == COMPASS_DIR.NORTHEAST || newDoor.dir == COMPASS_DIR.SOUTHWEST)
+            newDoor.transform.Rotate(0, -90, 0);
 
         newRoom.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size + .5f));
         

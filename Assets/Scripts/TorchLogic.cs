@@ -24,7 +24,7 @@ public class TorchLogic : MonoBehaviour, IRoomObject
 
     public void OnRoomTransitionOut(Room room)
     {
-        if (!torches.Contains(this))
+        if (torches.Contains(this))
             torches.Remove(this);
     }
 
