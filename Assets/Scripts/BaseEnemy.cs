@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,26 @@ public abstract class BaseEnemy : MonoBehaviour
             Debug.Log("Set active enemy count to " + value);
         }
     }
+
+    public static bool registered = false;
+
+    public void OnEnable() {
+        if (registered) return;
+        registered = true;
+        RuntimeManager.Play.Enter += CheckEnemyCount;
+    }
+
+    private void CheckEnemyCount()
+    {
+        if (_activeEnemyCount == 0) OnEnemyClear?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        if (!registered) return;
+        
+    }
+
     public abstract void Hit();
     protected void Kill()
     {

@@ -267,13 +267,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "None of the beings have answered our plea for help. YY if you're reading
-    this then\u2026 Im sorry, so sorry. I sent you to the torch room with no intention
-    of joining you. I\u2019ve shut all the doors and I\u2019ll be fighting in the
-    entry for as much time as I can buy you\u2026  I guess I must have bought enough.
-    I\u2019m so happy you made it and so sad to know I left you alone in this world.
-    And to the being accompanying my child thank you for accepting my selfish request
-    thank you so much!"
+  m_Text: 
 --- !u!1 &7419202723824133621
 GameObject:
   m_ObjectHideFlags: 0
