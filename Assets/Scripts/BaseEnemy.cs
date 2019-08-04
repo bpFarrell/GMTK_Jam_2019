@@ -6,7 +6,8 @@ public delegate void EnemyClearEvent();
 public abstract class BaseEnemy : MonoBehaviour
 {
     public static EnemyClearEvent OnEnemyClear;
-
+    public bool isDead = false; 
+    
     private static int _activeEnemyCount;
     public static int activeEnemyCount {
         get {
@@ -29,6 +30,7 @@ public abstract class BaseEnemy : MonoBehaviour
                 OnEnemyClear();
             }
         }
+        isDead = true;
         Destroy(gameObject);
     }
     
