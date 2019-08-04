@@ -33,7 +33,6 @@ public class VSFXLogic : MonoBehaviour
     }
     private void OnDisable()
     {
-
         RoomManager.Instance.OnRoomSwap-= Kill;
     }
     private void Kill()
