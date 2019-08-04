@@ -60,7 +60,7 @@
 				bf /= dot(bf, (float3)1);
 
 				//Texture Space
-				float2 uvx = IN.worldPos.yz * _MapScale;
+				float2 uvx = IN.worldPos.zy * _MapScale;
 				float2 uvy = IN.worldPos.zx * _MapScale;
 				float2 uvz = IN.worldPos.xy * _MapScale;
 
