@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
 {
@@ -80,7 +81,14 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
         setTestState = false;
         state = testState;
     }
-
+    private void OnEnable()
+    {
+        End.Enter += OnEnd;
+    }
+    private void OnDisable()
+    {
+        End.Enter -= OnEnd;
+    }
     private void ChangeState(GameState newState)
     {
         Transition trans;
@@ -99,9 +107,14 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
     private void Start() {
         state = GameState.NEWGAME;
     }
-
     public static void SetState(GameState incState) {
         StateLog(incState);
         Instance.state = incState;
+    }
+
+    private void OnEnd()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }

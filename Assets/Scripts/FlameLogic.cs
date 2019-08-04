@@ -117,7 +117,7 @@ public class FlameLogic : MonoBehaviour
     {
         RaycastHit hit;
         var rayDirection = torch.transform.position - this.transform.position;
-        if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, ~((1 << 9) + (1 << 8))))
+        if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, (1 + (1 << 13))))
         {
             foreach (Transform _tansform in torch.transform)
             {

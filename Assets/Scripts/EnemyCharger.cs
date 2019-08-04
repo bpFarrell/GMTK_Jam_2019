@@ -11,6 +11,7 @@ public class EnemyCharger : BaseEnemy,IRoomObject
         Charging,
         Cooldown
     }
+    Material material;
     public Vector3 startScale;
     public float moveSpeed = 1;
     public float chargeSpeed = 5;
@@ -19,10 +20,23 @@ public class EnemyCharger : BaseEnemy,IRoomObject
     public float chargeDelay = 0.5f;
     public float coolDown = 1;
     float stateTime;
+    bool isDying;
+    bool isPaused;
+    float timeOfDeath;
     public ChargerState state = ChargerState.Seeking;
     public override void Hit()
     {
-        Kill();
+        JuiceManager.Hang(3);
+        isDying = true;
+        timeOfDeath = Time.time;
+        MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+        material = new Material(mr[0].material);
+        for(int x = 0; x < mr.Length; x++)
+        {
+            mr[x].material = material;
+        }
+        Destroy(GetComponent<Collider>());
+        //Destroy(gameObject);
     }
     public void Start()
     {
@@ -30,6 +44,13 @@ public class EnemyCharger : BaseEnemy,IRoomObject
     }
     public void Update()
     {
+
+        if (isPaused) return;
+        if (isDying)
+        {
+            Dying();
+            return;
+        }
         Vector3 playerPos = PlayerMovement.Instance.transform.position;
         switch (state)
         {
@@ -85,5 +106,17 @@ public class EnemyCharger : BaseEnemy,IRoomObject
     public void OnRoomTransitionOut(Room room)
     {
         activeEnemyCount--;
+    }
+    void Dying()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x += Time.deltaTime * 1;
+        scale.y += Time.deltaTime * 1;
+        scale.z += Time.deltaTime * 1;
+        transform.localScale = scale;
+        float t = (Time.time - timeOfDeath) * 3;
+        material.SetFloat("_Death", t);
+        if (t > 1)
+            Kill();
     }
 }
