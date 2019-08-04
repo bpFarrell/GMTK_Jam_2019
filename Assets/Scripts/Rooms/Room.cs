@@ -95,23 +95,33 @@ public enum COMPASS_DIR
     SOUTHEAST = 2,
     SOUTHWEST = 3
 }
+
 public class Room : MonoBehaviour
 {
     public Transform torchContainer;
     public Transform doorContainer;
-    
+
     public CardinalRooms rooms = new CardinalRooms();
-    public IRoomObject[] roomObjects;
-    
-    // Characteristics
+    private IRoomObject[] _roomObjects;
+
+    public IRoomObject[] roomObjects
+    {
+        get
+        {
+            if (_roomObjects != null)
+            {
+                return _roomObjects;
+            }
+
+            _roomObjects = GetComponentsInChildren<IRoomObject>();
+            return _roomObjects;
+        }
+    }
+
+// Characteristics
     public float size
     {
         get { return transform.localScale.x; }
-    }
-
-    // Start is called before the first frame update
-    private void Start() {
-        roomObjects = GetComponentsInChildren<IRoomObject>();
     }
 
     private void OnDrawGizmos()
@@ -137,20 +147,22 @@ public class Room : MonoBehaviour
     
     public void Initialize()
     {
+        gameObject.SetActive(true);
+        if (roomObjects == null) return; 
         foreach (IRoomObject roomObject in roomObjects)
         {
             roomObject.OnRoomTransitionIn(this);
         }
-        gameObject.SetActive(true);
     }
 
     public void DeInitialize()
     {
+        gameObject.SetActive(false);
+        if (roomObjects == null) return;
         foreach (IRoomObject roomObject in roomObjects)
         {
             roomObject.OnRoomTransitionOut(this);
         }
-        gameObject.SetActive(false);
     }
 
     private const string PREFABRESOURCEPATH_ROOM = "Room";
@@ -165,7 +177,7 @@ public class Room : MonoBehaviour
         }
 
         COMPASS_DIR opDir = CardinalRooms.GetOppositeDir(dir);
-        Room newRoom = Instantiate(Resources.Load<Room>(PREFABRESOURCEPATH_ROOM));
+        Room newRoom = Instantiate(Resources.Load<Room>(PREFABRESOURCEPATH_ROOM), this.transform.parent);
         if (newRoom == null) {
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_ROOM});", this);
             return null;
@@ -179,6 +191,7 @@ public class Room : MonoBehaviour
         }
 
         myDoor.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+        myDoor.parent = this;
         myDoor.dir = dir;
 
         Door newDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR), newRoom.doorContainer);
@@ -188,6 +201,7 @@ public class Room : MonoBehaviour
             return null;
         }
         newDoor.transform.position = newRoom.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
+        newDoor.parent = newRoom;
         newDoor.dir = opDir;
 
         newRoom.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size + .5f));

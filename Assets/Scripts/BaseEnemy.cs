@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void EnemyClearEvent();
-public abstract class IEnemy : MonoBehaviour
+public abstract class BaseEnemy : MonoBehaviour
 {
     public static EnemyClearEvent OnEnemyClear;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemy :  IEnemy, IRoomObject
+public class TestBaseEnemy :  BaseEnemy, IRoomObject
 {
     public override void Hit()
     {

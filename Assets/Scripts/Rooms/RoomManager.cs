@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.VersionControl;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RoomManager : SingletonMonoBehaviour<RoomManager>
 {
+    public Door firstDoor;
     public Door currentDoor;
+    public List<Room> roomList; 
 
     private bool playerPositioned; 
     private bool flamePositioned; 
@@ -26,13 +26,28 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
         get { return _state; }
         private set
         {
-            if (value == state) return;
-            
+            if (_state == value) return;
+            _state = value;
         }
     }
-    private void Start() {
+    private void OnEnable() {
+        RuntimeManager.NewGame.Enter += NewGameEnter;
         RuntimeManager.RoomChange.Enter += RoomChangeEnter;
         RuntimeManager.RoomChange.Exit += RoomChangeExit;
+        roomList = GetComponentsInChildren<Room>().ToList();
+        foreach (Room room in roomList) {
+            room.transform.position = Vector3.zero;
+            room.Initialize();
+            room.DeInitialize();
+        }
+    }
+
+    private void NewGameEnter()
+    {
+        currentDoor = firstDoor;
+        currentDoor.parent.Initialize();
+        PlayerMovement.Instance.Teleport( currentDoor.TargetRoom.FindEdge(CardinalRooms.GetOppositeDir( currentDoor.dir )) - (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), Vector3.zero);
+        ChangeState(TransitionState.ENDANIMATION);
     }
 
     private void Update() {
@@ -43,7 +58,7 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
                 break;
             case TransitionState.BEGINANIMATION:
                 if (playerPositioned) {
-                    state = TransitionState.SWITCHROOMS;
+                    ChangeState(TransitionState.SWITCHROOMS);
                     playerPositioned = false;
                 }
                 break;
@@ -52,7 +67,7 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
             case TransitionState.ENDANIMATION:
                 if (playerPositioned)
                 {
-                    state = TransitionState.NONE;
+                    ChangeState(TransitionState.NONE);
                     playerPositioned = false;
                     RuntimeManager.SetState(RuntimeManager.GameState.PLAY);
                 }
@@ -69,14 +84,15 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
             Room room = currentDoor.parent;
             PlayerMovement.Instance.GoTo(room.FindEdge(currentDoor.dir) + (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), () => playerPositioned = true);
         }
-        if (incState == TransitionState.SWITCHROOMS) {
+        else if (incState == TransitionState.SWITCHROOMS) {
             PlayerMovement.Instance.Teleport( currentDoor.TargetRoom.FindEdge(CardinalRooms.GetOppositeDir( currentDoor.dir )) - (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), Vector3.zero);
             //FlameLogic teleport goes here
             currentDoor.TargetRoom.Initialize();
             currentDoor.parent.DeInitialize();
             CameraRoomScaler.Instance.SetCameraOrthographicSize(currentDoor.TargetRoom);
+            ChangeState(TransitionState.ENDANIMATION);
         }
-        if (incState == TransitionState.ENDANIMATION)
+        else if (incState == TransitionState.ENDANIMATION)
         {
             Room room = currentDoor.TargetRoom;
             PlayerMovement.Instance.GoTo(room.FindEdge(CardinalRooms.GetOppositeDir( currentDoor.dir )) + (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), () => playerPositioned = true);
@@ -86,14 +102,16 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
         currentDoor = door;
     }
 
-    private void ChangeSet(TransitionState newState) {
+    private void ChangeState(TransitionState newState) {
         Update(newState);
+        state = newState;
     }
     private void RoomChangeEnter() {
-        state = TransitionState.BEGINANIMATION;
+        ChangeState(TransitionState.BEGINANIMATION);
         
     }
-    private void RoomChangeExit() {
-        state = TransitionState.NONE;
+    private void RoomChangeExit()
+    {
+        ChangeState(TransitionState.NONE);
     }
 }

@@ -10,12 +10,12 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
     {
         DUMMY,
         MAINMENU,
+        NEWGAME,
         PLAY,
         ROOMCHANGE,
         DEATH,
         END
     }
-    
 
     public class Transition
     {
@@ -28,6 +28,9 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
             {
                 case GameState.MAINMENU:
                     return MainMenu;
+                    break;
+                case GameState.NEWGAME:
+                    return NewGame;
                     break;
                 case GameState.PLAY:
                     return Play;
@@ -48,11 +51,17 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
     }
     
     public static readonly Transition MainMenu = new Transition();
+    public static readonly Transition NewGame = new Transition();
     public static readonly Transition Play = new Transition();
     public static readonly Transition RoomChange = new Transition();
     public static readonly Transition Death = new Transition();
     public static readonly Transition End = new Transition();
 
+    [SerializeField]
+    private GameState testState;
+    [SerializeField]
+    private bool setTestState = false;
+        
     private GameState _state = GameState.DUMMY;
     public GameState state
     {
@@ -63,6 +72,13 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
             ChangeState(value);
             _state = value;
         }
+    }
+
+    private void Update()
+    {
+        if (!setTestState) return;
+        setTestState = false;
+        state = testState;
     }
 
     private void ChangeState(GameState newState)
@@ -77,10 +93,11 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
         
         trans = Transition.Get(newState);
         trans.Enter?.Invoke();
+        testState = _state;
     }
 
-    private void OnEnable() {
-        state = GameState.PLAY;
+    private void Start() {
+        state = GameState.NEWGAME;
     }
 
     public static void SetState(GameState incState) {

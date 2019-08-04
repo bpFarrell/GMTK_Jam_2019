@@ -8,6 +8,8 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
     public float moddedTurnSpeed = 1;
     public float faceScaleClamp = 0;
     public state playerState = state.PlayerControlled;
+    [Range(0.02f, 0.2f)]
+    double goToFloor = 0.05f;
 
     private float PLAYERHEIGHT = 0;
     private Vector3 destination;
@@ -23,6 +25,8 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
     private void OnEnable()
     {
         PLAYERHEIGHT = transform.position.y;
+        RuntimeManager.Play.Enter += GiveControll;
+        RuntimeManager.Play.Exit += TakeControll;
     }
 
     // Update is called once per frame
@@ -51,7 +55,7 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
         else if (playerState == state.GoTo)
         {
             dir = GetXZNormalizedVector(destination - transform.position);
-            if ((transform.position - new Vector3(destination.x, PLAYERHEIGHT, destination.z)).magnitude <= 0.01) {
+            if ((transform.position - new Vector3(destination.x, PLAYERHEIGHT, destination.z)).magnitude <= goToFloor) {
                 playerState = state.GenericSystemControlled;
                 PlayerCallbacks.PlayerGoToDone?.Invoke();
                 PlayerCallbacks.PlayerGoToDone = null;

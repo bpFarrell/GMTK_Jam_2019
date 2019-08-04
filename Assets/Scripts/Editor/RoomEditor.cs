@@ -26,7 +26,7 @@ public class RoomEditor : Editor {
         if (GUILayout.Button("SouthWest")) {
             script.CreateNeighbor(COMPASS_DIR.SOUTHWEST);
         }
-        EditorGUILayout.ObjectField( script.rooms.nw, typeof(Room), true);
+        EditorGUILayout.ObjectField( script.rooms.sw, typeof(Room), true);
 
         GUILayout.EndVertical();
         GUILayout.Space(80f);
@@ -35,13 +35,13 @@ public class RoomEditor : Editor {
         if (GUILayout.Button("NorthEast")) {
             script.CreateNeighbor(COMPASS_DIR.NORTHEAST);
         }
-        EditorGUILayout.ObjectField( script.rooms.nw, typeof(Room), true);
+        EditorGUILayout.ObjectField( script.rooms.ne, typeof(Room), true);
         GUILayout.Space(40f);
         if (GUILayout.Button("SouthEast"))
         {
             script.CreateNeighbor(COMPASS_DIR.SOUTHEAST);
         }
-        EditorGUILayout.ObjectField( script.rooms.nw, typeof(Room), true);
+        EditorGUILayout.ObjectField( script.rooms.se, typeof(Room), true);
 
         GUILayout.EndVertical();
     

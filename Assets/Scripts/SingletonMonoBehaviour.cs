@@ -17,8 +17,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
                     Destroy(runtimes[i].gameObject);
                 }
             }
-            if (runtimes.Length == 0)
-            {
+            if (runtimes.Length == 0) {
                 Debug.LogError($"No {typeof(T)} found in scene");
                 return null;
             }

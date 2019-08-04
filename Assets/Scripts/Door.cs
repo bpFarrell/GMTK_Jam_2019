@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Door : MonoBehaviour, IRoomObject
     public Room parent;
 
     public Room TargetRoom => this.parent.rooms.Get(this.dir);
+    public bool locked = true;
 
     private void OnDrawGizmos()
     {
@@ -15,29 +17,39 @@ public class Door : MonoBehaviour, IRoomObject
         Gizmos.DrawCube(transform.position + (Vector3.up * .05f), Vector3.one*.1f);
     }
 
+    private void OnEnable()
+    {
+        BaseEnemy.OnEnemyClear += Unlock;
+    }
+
+    private void Unlock() {
+        locked = false;
+    }
+
     public void OnRoomTransitionIn(Room room)
     {
-        parent = room; 
+        parent = room;
+        locked = true;
         if(parent == null)
         {
-            Debug.LogWarning("NULL_PARENT", this);
+            Debug.LogWarning("TRANSITION_NULL_PARENT", this);
         }
     }
 
-    public void OnRoomTransitionOut(Room room)
-    {
-        parent = null;
+    public void OnRoomTransitionOut(Room room) {
+        return; 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (parent == null)
-        {
+        if (locked) return;
+        if (parent == null) {
             Debug.LogWarning("NULL_PARENT", this); 
             return;
         }
         RoomManager.Instance.SetRoom(this);
-        // transition to room pointed by dir. 
+        // probably should not be the authority of the door
+        RuntimeManager.SetState(RuntimeManager.GameState.ROOMCHANGE);
     }
 
 }

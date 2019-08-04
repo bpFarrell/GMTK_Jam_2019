@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemySlime : IEnemy, IRoomObject
+public class BaseEnemySlime : BaseEnemy, IRoomObject
 {
     public float moveSpeed;
     public float jumpSpeed = 5;
@@ -30,7 +30,6 @@ public class EnemySlime : IEnemy, IRoomObject
     // Start is called before the first frame update
     void Start()
     {
-        activeEnemyCount++;
         startY = transform.position.y;
         startScale = transform.localScale.y;
     }

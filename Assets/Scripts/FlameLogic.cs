@@ -69,6 +69,7 @@ public class FlameLogic : MonoBehaviour
     }
     void JumpToTarget(Vector3 direction)
     {
+        if (TorchLogic.torches.Count == 0) return;
         float closestDot = 0;
         int closestIndex = 0;
         for (int x = 0; x < TorchLogic.torches.Count; x++)
@@ -94,7 +95,7 @@ public class FlameLogic : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        IEnemy enemey = other.GetComponent<IEnemy>();
+        BaseEnemy enemey = other.GetComponent<BaseEnemy>();
         if (enemey != null)
         {
             enemey.Hit();
