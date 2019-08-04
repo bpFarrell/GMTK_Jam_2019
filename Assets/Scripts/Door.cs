@@ -23,10 +23,10 @@ public class Door : MonoBehaviour, IRoomObject
     }
     private void OnDisable()
     {
-
         BaseEnemy.OnEnemyClear -= Unlock;
     }
     private void Unlock() {
+        if (!locked) return;
         locked = false;
         lockedDoor.Open();
         if (gameObject.activeInHierarchy)
