@@ -25,7 +25,10 @@ public class CameraRoomScaler : SingletonMonoBehaviour<CameraRoomScaler>
             Debug.Log("set room size failure");
             return;
         }
-        mainCamera.orthographicSize = magicFloat * room.size; 
+        if(room.cameraOverride == 0)
+            mainCamera.orthographicSize = magicFloat * room.size;
+        else 
+            mainCamera.orthographicSize = magicFloat * room.cameraOverride;
     }
 
     public void ResetCameraOrthographicSize()
