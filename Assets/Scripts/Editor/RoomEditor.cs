@@ -12,6 +12,7 @@ public class RoomEditor : Editor {
 
         script.torchContainer = EditorGUILayout.ObjectField("Torch Container", script.torchContainer, typeof(Transform), true) as Transform;
         script.doorContainer = EditorGUILayout.ObjectField("Door Container", script.doorContainer, typeof(Transform), true) as Transform;
+        script.floorTransform = EditorGUILayout.ObjectField("Floor Reference", script.floorTransform, typeof(Transform), true) as Transform;
 
         GUILayout.Space(20f);
         GUILayout.BeginHorizontal();

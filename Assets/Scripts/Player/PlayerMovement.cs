@@ -57,6 +57,7 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
             dir = GetXZNormalizedVector(destination - transform.position);
             if ((transform.position - new Vector3(destination.x, PLAYERHEIGHT, destination.z)).magnitude <= goToFloor) {
                 playerState = state.GenericSystemControlled;
+                this.gameObject.layer = 8;
                 PlayerCallbacks.PlayerGoToDone?.Invoke();
                 PlayerCallbacks.PlayerGoToDone = null;
             }
@@ -126,6 +127,7 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
     public void GoTo(Vector3 destination, System.Action goToDone)
     {
         if (PlayerCallbacks.PlayerGoToDone != null) return;
+        this.gameObject.layer = 14;
         PlayerCallbacks.PlayerGoToDone = goToDone;
         playerState = state.GoTo;
         this.destination = destination;
