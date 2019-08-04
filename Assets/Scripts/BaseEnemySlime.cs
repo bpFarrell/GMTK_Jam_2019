@@ -71,13 +71,15 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
 
     public void OnRoomTransitionOut(Room room)
     {
-        activeEnemyCount--;
         isPaused = true;
+        if (isDead) return;
+        activeEnemyCount--;
     }
 
     public void OnRoomTransitionIn(Room room)
     {
-        activeEnemyCount++;
         isPaused = false;
+        if (isDead) return; 
+        activeEnemyCount++;
     }
 }
