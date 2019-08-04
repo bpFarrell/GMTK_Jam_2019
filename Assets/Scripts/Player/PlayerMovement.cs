@@ -36,10 +36,6 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
 
         if (playerState == state.PlayerControlled)
         {
-            dir.x = Input.GetAxis("Horizontal");
-            dir.z = Input.GetAxis("Vertical");
-            if (dir.magnitude < 0.1f)
-                dir = Vector3.zero;
             if (Input.GetKey("w"))
             {
                 dir += CameraPost.GetXZNormalizedVector(Vector3.forward);
@@ -55,6 +51,20 @@ public class PlayerMovement : SingletonMonoBehaviour<PlayerMovement>
             if (Input.GetKey("d"))
             {
                 dir += CameraPost.GetXZNormalizedVector(Vector3.right);
+            }
+
+            if (dir.magnitude < 0.1f)
+            {
+
+                dir.x = Input.GetAxis("Horizontal");
+                dir.z = Input.GetAxis("Vertical");
+
+                dir += CameraPost.GetXZNormalizedVector(dir);
+            }
+
+            if (dir.magnitude < 0.1f)
+            {
+                dir = Vector3.zero;
             }
         }
         else if (playerState == state.GoTo)
