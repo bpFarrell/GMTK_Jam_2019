@@ -27,8 +27,28 @@ public class VSFXLogic : MonoBehaviour
 
         get { return Time.time - cleaningUpAt; }
     }
+    private void OnEnable()
+    {
+        RoomManager.Instance.OnRoomSwap += Kill;
+    }
+    private void OnDisable()
+    {
+
+        RoomManager.Instance.OnRoomSwap-= Kill;
+    }
+    private void Kill()
+    {
+        Destroy(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
+    {
+        if (!string.IsNullOrEmpty(sound))
+        {
+            Init(sound);
+        }
+    }
+    public void Init(string text)
     {
         seed = Random.value;
         timeStart = Time.time;
@@ -48,7 +68,6 @@ public class VSFXLogic : MonoBehaviour
             texts[x].color = Color.clear;
         }
     }
-
     // Update is called once per frame
     void Update()
     {

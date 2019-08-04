@@ -7,8 +7,9 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 {
     public Door firstDoor;
     public Door currentDoor;
-    public List<Room> roomList; 
-
+    public List<Room> roomList;
+    public delegate void RoomSwap();
+    public RoomSwap OnRoomSwap;
     private bool playerPositioned; 
     private bool flamePositioned; 
 
@@ -91,6 +92,8 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
             currentDoor.TargetRoom.Initialize();
             currentDoor.parent.DeInitialize();
             CameraRoomScaler.Instance.SetCameraOrthographicSize(currentDoor.TargetRoom);
+            if (OnRoomSwap != null)
+                OnRoomSwap();
             ChangeState(TransitionState.ENDANIMATION);
         }
         else if (incState == TransitionState.ENDANIMATION)
