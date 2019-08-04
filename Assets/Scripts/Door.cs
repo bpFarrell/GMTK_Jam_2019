@@ -7,7 +7,7 @@ public class Door : MonoBehaviour, IRoomObject
 {
     public COMPASS_DIR dir;
     public Room parent;
-
+    public LockedDoorLogic lockedDoor;
     public Room TargetRoom => this.parent.rooms.Get(this.dir);
     public bool locked = true;
 
@@ -24,6 +24,7 @@ public class Door : MonoBehaviour, IRoomObject
 
     private void Unlock() {
         locked = false;
+        lockedDoor.Open();
     }
 
     public void OnRoomTransitionIn(Room room)
