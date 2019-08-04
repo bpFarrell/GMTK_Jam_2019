@@ -18,11 +18,11 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
         END
     }
 
+    public static int lastFrameCount;
     public class Transition
     {
         public Action Enter;
         public Action Exit;
-
         public static Transition Get(GameState state)
         {
             switch (state)
@@ -77,6 +77,27 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
 
     private void Update()
     {
+        if (Time.frameCount % 10 == 0)
+        {
+            BaseEnemy[] enms = FindObjectsOfTypeAll(typeof(BaseEnemy)) as BaseEnemy[];
+            int count = 0;
+            for (int x = 0; x < enms.Length; x++)
+            {
+                if (enms[x].isActiveAndEnabled) count++;
+            }
+
+            if (count == 0 && lastFrameCount != 0)
+            {
+                Debug.Log("All have been removed!");
+                if (BaseEnemy.OnEnemyClear != null)
+                {
+                    BaseEnemy.OnEnemyClear();
+                }
+            }
+            lastFrameCount = count;
+        }
+        //Debug.Log("Counts = "+count);
+
         if (!setTestState) return;
         setTestState = false;
         state = testState;
@@ -105,7 +126,7 @@ public class RuntimeManager : SingletonMonoBehaviour<RuntimeManager>
     }
 
     private void Start() {
-        state = GameState.NEWGAME;
+        SetState(GameState.NEWGAME);
     }
     public static void SetState(GameState incState) {
         StateLog(incState);
