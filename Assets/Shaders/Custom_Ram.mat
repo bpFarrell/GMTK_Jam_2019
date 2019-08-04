@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_GhostAnim
-  m_Shader: {fileID: 4800000, guid: 4863eb65acd768245a9a4d7a4f81fb8d, type: 3}
+  m_Name: Custom_Ram
+  m_Shader: {fileID: 4800000, guid: aaa36d6d34e3608479098146bb1d0cd5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -26,6 +26,7 @@ Material:
     m_Floats:
     - _Death: 0
     - _Glossiness: 0
-    - _Metallic: 1
+    - _Jiggle: 0.5
+    - _Metallic: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.24959952, g: 0.745283, b: 0.2867758, a: 1}
