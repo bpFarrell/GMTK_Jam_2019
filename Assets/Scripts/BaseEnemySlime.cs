@@ -9,6 +9,7 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
     public float jumpSpeed = 5;
     Material material;
     public GameObject targat;
+    Vector3 dest;
     public float scaleFactor = 0.1f;
     float startY;
     float startScale;
@@ -48,7 +49,11 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
         pos.y = startY;
         if (sin > 0)
         {
-            pos = Vector3.MoveTowards(pos, PlayerMovement.Instance.transform.position, moveSpeed * Time.deltaTime);
+            pos = Vector3.MoveTowards(pos, dest, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            dest = PlayerMovement.Instance.transform.position;
         }
         pos.y += sin;
         transform.position = pos;

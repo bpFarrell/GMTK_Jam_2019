@@ -19,6 +19,8 @@ public class EnemyCharger : BaseEnemy,IRoomObject
     public float chargeDist = 0.5f;
     public float chargeDelay = 0.5f;
     public float coolDown = 1;
+    public float turnSpeed = 70;
+    public float angleChargeThreshold = 0.8f;
     float stateTime;
     bool isDying;
     bool isPaused;
@@ -55,9 +57,13 @@ public class EnemyCharger : BaseEnemy,IRoomObject
         switch (state)
         {
             case ChargerState.Seeking:
-                transform.LookAt(playerPos);
+                Vector3 dir2Player = PlayerMovement.Instance.transform.position - transform.position;
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.LookRotation(dir2Player, Vector3.up),
+                    turnSpeed*Time.deltaTime);
                 transform.position += transform.forward * Time.deltaTime * moveSpeed;
-                if (Vector3.Distance(transform.position, playerPos) < triggerDistance)
+                if (Vector3.Distance(transform.position, playerPos) < triggerDistance&&
+                    Vector3.Dot(transform.forward,dir2Player.normalized)>angleChargeThreshold)
                 {
                     state = ChargerState.PrepCharge;
                     stateTime = Time.time;
