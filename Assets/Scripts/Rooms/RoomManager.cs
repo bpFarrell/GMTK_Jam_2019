@@ -103,8 +103,8 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
     }
 
     private void ChangeState(TransitionState newState) {
-        Update(newState);
         state = newState;
+        Update(newState);
     }
     private void RoomChangeEnter() {
         ChangeState(TransitionState.BEGINANIMATION);

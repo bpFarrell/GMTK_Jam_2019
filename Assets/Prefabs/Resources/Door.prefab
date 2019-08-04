@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853100462}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hinge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 1038238778}
   - component: {fileID: 1038238777}
   - component: {fileID: 1038238776}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038238775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.029000014, y: 0.416, z: -0.049000025}
+  m_LocalPosition: {x: -0.05299999, y: 0.416, z: -0.049000025}
   m_LocalScale: {x: 0.04986669, y: 0.47855577, z: 0.04986669}
   m_Children: []
   m_Father: {fileID: 853100462}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1612050878}
   - component: {fileID: 1612050877}
   - component: {fileID: 1612050876}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612050875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06399998, y: 0.416, z: -0.049000025}
+  m_LocalPosition: {x: 0.040000007, y: 0.416, z: -0.049000025}
   m_LocalScale: {x: 0.04986669, y: 0.47855577, z: 0.04986669}
   m_Children: []
   m_Father: {fileID: 853100462}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 1670228509}
   - component: {fileID: 1670228508}
   - component: {fileID: 1670228507}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670228506}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.20500001, y: 0.416, z: -0.049000025}
+  m_LocalPosition: {x: -0.22899999, y: 0.416, z: -0.049000025}
   m_LocalScale: {x: 0.04986669, y: 0.47855577, z: 0.04986669}
   m_Children: []
   m_Father: {fileID: 853100462}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 1712999808}
   - component: {fileID: 1712999807}
   - component: {fileID: 1712999806}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712999805}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11900002, y: 0.416, z: -0.049000025}
+  m_LocalPosition: {x: -0.14299999, y: 0.416, z: -0.049000025}
   m_LocalScale: {x: 0.04986669, y: 0.47855577, z: 0.04986669}
   m_Children: []
   m_Father: {fileID: 853100462}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 1777356702}
   - component: {fileID: 1777356701}
   - component: {fileID: 1777356700}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777356699}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25399998, y: 0.416, z: -0.049000025}
+  m_LocalPosition: {x: 0.23, y: 0.416, z: -0.049000025}
   m_LocalScale: {x: 0.04986669, y: 0.47855577, z: 0.04986669}
   m_Children: []
   m_Father: {fileID: 853100462}
@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 1943874603}
   - component: {fileID: 1943874602}
   - component: {fileID: 1943874601}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943874600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.16099998, y: 0.416, z: -0.049000025}
+  m_LocalPosition: {x: 0.13700001, y: 0.416, z: -0.049000025}
   m_LocalScale: {x: 0.04986669, y: 0.47855577, z: 0.04986669}
   m_Children: []
   m_Father: {fileID: 853100462}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 2113095032}
   - component: {fileID: 2113095031}
   - component: {fileID: 2113095033}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ Transform:
   m_GameObject: {fileID: 2113095030}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.6, y: 4, z: 4.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 853100462}
   m_Father: {fileID: 6771050050263365915}
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 6771050050263365915}
   - component: {fileID: 5506194394841120859}
   - component: {fileID: 4651653592777395692}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ Transform:
   m_GameObject: {fileID: 6771050050263365908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.2173913, y: 0.25, z: 0.2173913}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2113095032}
   m_Father: {fileID: 0}
@@ -623,5 +623,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 3, z: 0.3}
+  m_Size: {x: 0.7, y: 3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}

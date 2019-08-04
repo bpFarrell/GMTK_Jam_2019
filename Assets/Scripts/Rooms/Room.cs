@@ -100,6 +100,7 @@ public class Room : MonoBehaviour
 {
     public Transform torchContainer;
     public Transform doorContainer;
+    public Transform floorTransform;
 
     public CardinalRooms rooms = new CardinalRooms();
     private IRoomObject[] _roomObjects;
@@ -121,7 +122,7 @@ public class Room : MonoBehaviour
 // Characteristics
     public float size
     {
-        get { return transform.localScale.x; }
+        get { return Mathf.Max(floorTransform.localScale.x, floorTransform.localScale.z); }
     }
 
     private void OnDrawGizmos()
@@ -138,11 +139,17 @@ public class Room : MonoBehaviour
         }
     }
 
-    public Vector3 FindEdge(COMPASS_DIR dir) {
-        return this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+    public Vector3 FindEdge(COMPASS_DIR dir)
+    {
+        Vector3 vectorMask = CardinalRooms.GetDir(dir);
+        Vector3 val = new Vector3(vectorMask.x * floorTransform.localScale.x, 0, vectorMask.z * floorTransform.localScale.z);
+        return this.transform.position + (val * .5f);
     }
-    public Vector3 FindEdge(int dir) {
-        return this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+    public Vector3 FindEdge(int dir)
+    {
+        Vector3 vectorMask = CardinalRooms.GetDir(dir);
+        Vector3 val = new Vector3(vectorMask.x * floorTransform.localScale.x, 0, vectorMask.z * floorTransform.localScale.z);
+        return this.transform.position + (val * .5f);
     }
     
     public void Initialize()
@@ -184,6 +191,8 @@ public class Room : MonoBehaviour
         }
 
         Door myDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR), doorContainer);
+        if (myDoor.dir == COMPASS_DIR.NORTHEAST || myDoor.dir == COMPASS_DIR.SOUTHWEST)
+            myDoor.transform.Rotate(0, 90, 0);
         if(myDoor == null)
         {
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
@@ -195,6 +204,8 @@ public class Room : MonoBehaviour
         myDoor.dir = dir;
 
         Door newDoor = Instantiate(Resources.Load<Door>(PREFABRESOURCEPATH_DOOR), newRoom.doorContainer);
+        if (newDoor.dir == COMPASS_DIR.NORTHEAST || myDoor.dir == COMPASS_DIR.SOUTHWEST)
+            newDoor.transform.Rotate(0, 90, 0);
         if (newDoor == null)
         {
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
