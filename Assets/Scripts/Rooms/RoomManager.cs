@@ -85,8 +85,9 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
             PlayerMovement.Instance.GoTo(room.FindEdge(currentDoor.dir) + (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), () => playerPositioned = true);
         }
         else if (incState == TransitionState.SWITCHROOMS) {
-            PlayerMovement.Instance.Teleport( currentDoor.TargetRoom.FindEdge(CardinalRooms.GetOppositeDir( currentDoor.dir )) - (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), Vector3.zero);
-            //FlameLogic teleport goes here
+            Vector3 foundEdge = currentDoor.TargetRoom.FindEdge(CardinalRooms.GetOppositeDir( currentDoor.dir )) - (CardinalRooms.GetDir(currentDoor.dir) * 0.5f);
+            PlayerMovement.Instance.Teleport( foundEdge, Vector3.zero);
+            FlameLogic.Instance.Teleport(foundEdge);
             currentDoor.TargetRoom.Initialize();
             currentDoor.parent.DeInitialize();
             CameraRoomScaler.Instance.SetCameraOrthographicSize(currentDoor.TargetRoom);
@@ -95,6 +96,7 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
         else if (incState == TransitionState.ENDANIMATION)
         {
             Room room = currentDoor.TargetRoom;
+            FlameLogic.Instance.TargetClosestToPosition(FlameLogic.Instance.transform.position);
             PlayerMovement.Instance.GoTo(room.FindEdge(CardinalRooms.GetOppositeDir( currentDoor.dir )) + (CardinalRooms.GetDir(currentDoor.dir) * 0.5f), () => playerPositioned = true);
         }
     }

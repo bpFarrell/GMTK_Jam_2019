@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   light: {fileID: 1643734673}
-  speed: 1
-  speedDecay: 0.5
+  speed: 1.5
+  speedDecay: 0.4
+  range: 2.5
   turningOn: 0
