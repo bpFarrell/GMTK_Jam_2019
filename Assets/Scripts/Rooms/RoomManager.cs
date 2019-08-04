@@ -42,7 +42,12 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
             room.DeInitialize();
         }
     }
-
+    private void OnDisable()
+    {
+        RuntimeManager.NewGame.Enter -= NewGameEnter;
+        RuntimeManager.RoomChange.Enter -= RoomChangeEnter;
+        RuntimeManager.RoomChange.Exit -= RoomChangeExit;
+    }
     private void NewGameEnter()
     {
         currentDoor = firstDoor;
