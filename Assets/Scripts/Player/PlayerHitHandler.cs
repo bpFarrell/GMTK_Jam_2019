@@ -16,5 +16,6 @@ public class PlayerHitHandler : MonoBehaviour
 
     private void HitByEnemyAction(GameObject enemyGO) {
         Debug.LogFormat("Player Hit by enemy {0}", enemyGO.name);
+        RuntimeManager.SetState(RuntimeManager.GameState.DEATH);
     }
 }
