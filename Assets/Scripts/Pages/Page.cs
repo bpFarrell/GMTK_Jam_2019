@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Page : MonoBehaviour
 {
-    public string body = "";
+    public int pageNumber = 0;
     Canvas canvas;
     UiPage page;
 
@@ -27,7 +27,7 @@ public class Page : MonoBehaviour
         {
             if (other.gameObject.layer == 8)
             {
-                page.SetActive(body);
+                page.SetActive(PageContent.notes[pageNumber]);
             }
         }
     }
