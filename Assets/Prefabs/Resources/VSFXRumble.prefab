@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2122530517743447963
+--- !u!1 &3872778893562366668
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2122530517743447961}
-  - component: {fileID: 2122530517743447962}
+  - component: {fileID: 3872778893562366670}
+  - component: {fileID: 3872778893562366669}
   m_Layer: 0
-  m_Name: VSFXSplat
+  m_Name: VSFXSRumble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2122530517743447961
+--- !u!4 &3872778893562366670
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122530517743447963}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
+  m_GameObject: {fileID: 3872778893562366668}
+  m_LocalRotation: {x: 0.0000000052683635, y: 0.000000014901161, z: -0.0000000052683484,
+    w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
---- !u!114 &2122530517743447962
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3872778893562366669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122530517743447963}
+  m_GameObject: {fileID: 3872778893562366668}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aad6f3a29cf0b784989d0c07f2442120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: Splat
-  duration: 0.4
-  type: 1
+  sound: Rumble
+  duration: 4
+  type: 0
   freq: 40
-  mag: 0.1
+  mag: 0.2

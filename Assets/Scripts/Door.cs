@@ -25,6 +25,12 @@ public class Door : MonoBehaviour, IRoomObject
     private void Unlock() {
         locked = false;
         lockedDoor.Open();
+        if (gameObject.activeInHierarchy)
+        {
+            GameObject go = Instantiate(Resources.Load("VSFXRumble")) as GameObject;
+            go.transform.position = transform.position;
+            go.transform.rotation = lockedDoor.transform.rotation;
+        }
     }
 
     public void OnRoomTransitionIn(Room room)
