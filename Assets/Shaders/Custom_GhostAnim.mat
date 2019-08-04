@@ -26,6 +26,7 @@ Material:
     m_Floats:
     - _Death: 0
     - _Glossiness: 0
-    - _Metallic: 1
+    - _Metallic: 0
     m_Colors:
+    - _Bend: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

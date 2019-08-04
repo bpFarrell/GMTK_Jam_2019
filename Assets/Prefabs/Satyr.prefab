@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ece74ce0b402024b84cb6bedf835225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
   startScale: {x: 0, y: 0, z: 0}
   moveSpeed: 1
   chargeSpeed: 7.5
@@ -145,6 +146,8 @@ MonoBehaviour:
   chargeDist: 0.2
   chargeDelay: 0.5
   coolDown: 1
+  turnSpeed: 2
+  angleChargeThreshold: 0.8
   state: 0
 --- !u!136 &4497329993973617325
 CapsuleCollider:

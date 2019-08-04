@@ -9,12 +9,14 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
     public float jumpSpeed = 5;
     Material material;
     public GameObject targat;
+    Vector3 dest;
     public float scaleFactor = 0.1f;
     float startY;
     float startScale;
     bool isDying;
     bool isPaused;
     float timeOfDeath;
+    bool grounded;
     public override void Hit()
     {
         JuiceManager.Hang(3);
@@ -48,7 +50,19 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
         pos.y = startY;
         if (sin > 0)
         {
-            pos = Vector3.MoveTowards(pos, PlayerMovement.Instance.transform.position, moveSpeed * Time.deltaTime);
+            if (grounded) grounded = false;
+            pos = Vector3.MoveTowards(pos, dest, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+
+            if (!grounded)
+            {
+                grounded = true;
+                GameObject go = Instantiate(Resources.Load("VSFXSplat")) as GameObject;
+                go.transform.position = transform.position;
+            }
+            dest = PlayerMovement.Instance.transform.position;
         }
         pos.y += sin;
         transform.position = pos;
