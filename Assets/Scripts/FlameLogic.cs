@@ -77,6 +77,7 @@ public class FlameLogic : MonoBehaviour
             Vector3 torchDir = TorchLogic.torches[x].transform.position - transform.position;
             float nowDot = Mathf.Clamp01(Vector3.Dot(direction.normalized, torchDir.normalized));
             if (nowDot == 0) continue;
+            if (!CheckLOS(TorchLogic.torches[x].gameObject)) continue;
             nowDot /= torchDir.magnitude;
             if (nowDot > closestDot)
             {
@@ -112,4 +113,22 @@ public class FlameLogic : MonoBehaviour
         state = FlameLogicState.Active;
     }
 
+    bool CheckLOS(GameObject torch)
+    {
+        RaycastHit hit;
+        var rayDirection = torch.transform.position - this.transform.position;
+        if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, ~((1 << 9) + (1 << 8))))
+        {
+            foreach (Transform _tansform in torch.transform)
+            {
+                if (ReferenceEquals(hit.transform, _tansform))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+
+    }
 }
