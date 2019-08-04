@@ -58,6 +58,13 @@ public class FlameLogic : MonoBehaviour
     void CheckMouseSnap()
     {
         Vector3 delta = new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y"));
+        Vector3 stick = new Vector3(Input.GetAxis("RightH"), 0, -Input.GetAxis("RightV"));
+
+        if (stick.magnitude > 0.8)
+        {
+            Debug.Log(stick);
+            JumpToTarget(CameraPost.GetXZNormalizedVector(stick));
+        }
         mouseVelocity *= 0.5f;
         mouseVelocity += delta;
         lastFramePos = Input.mousePosition;
