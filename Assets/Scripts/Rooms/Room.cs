@@ -104,6 +104,7 @@ public class Room : MonoBehaviour
 
     public CardinalRooms rooms = new CardinalRooms();
     private IRoomObject[] _roomObjects;
+    public float cameraOverride = 0f;
 
     public IRoomObject[] roomObjects
     {
@@ -197,7 +198,7 @@ public class Room : MonoBehaviour
             return null;
         }
 
-        myDoor.transform.position = this.transform.position + (CardinalRooms.GetDir(dir) * (size * .5f));
+        myDoor.transform.position = this.FindEdge(dir);
         myDoor.parent = this;
         myDoor.dir = dir;
         if (myDoor.dir == COMPASS_DIR.NORTHEAST || myDoor.dir == COMPASS_DIR.SOUTHWEST)
@@ -209,7 +210,8 @@ public class Room : MonoBehaviour
             Debug.LogError($"Resources.Load<Room>({PREFABRESOURCEPATH_DOOR});", this);
             return null;
         }
-        newDoor.transform.position = newRoom.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
+        //newDoor.transform.position = newRoom.transform.position + (CardinalRooms.GetDir(opDir) * (size * .5f));
+        newDoor.transform.position = newRoom.FindEdge(opDir);
         newDoor.parent = newRoom;
         newDoor.dir = opDir;
         if (newDoor.dir == COMPASS_DIR.NORTHEAST || newDoor.dir == COMPASS_DIR.SOUTHWEST)
