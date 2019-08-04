@@ -4854,12 +4854,12 @@ GameObject:
   - component: {fileID: 3968153474644088144}
   - component: {fileID: 8628437694832517260}
   - component: {fileID: 975677136624850907}
-  - component: {fileID: 3654499385560540238}
   - component: {fileID: 1778398113018575664}
   - component: {fileID: 1778398113018575663}
   - component: {fileID: 1778398113018575665}
   - component: {fileID: 1146986062723616461}
   - component: {fileID: 1837682515472608429}
+  - component: {fileID: 3926335029063046183}
   m_Layer: 10
   m_Name: Frame
   m_TagString: Untagged
@@ -4928,19 +4928,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &3654499385560540238
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778398113018575662}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &1778398113018575664
 TrailRenderer:
   serializedVersion: 2
@@ -5057,6 +5044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bea7167b5057464eb5547006bfdaa1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
 --- !u!54 &1778398113018575665
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9793,3 +9781,17 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!136 &3926335029063046183
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778398113018575662}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 4.829331
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.020767609, z: 0}

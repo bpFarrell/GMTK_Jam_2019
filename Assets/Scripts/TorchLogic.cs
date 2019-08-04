@@ -8,6 +8,7 @@ public class TorchLogic : MonoBehaviour, IRoomObject
     public Light light;
     public float speed = 3;
     public float speedDecay = 0.5f;
+    public float range = 2;
 
     public bool turningOn;
     private void OnEnable()
@@ -44,7 +45,7 @@ public class TorchLogic : MonoBehaviour, IRoomObject
         else if (turningOn)
         {
             light.range += Time.deltaTime * speed;
-            light.range = Mathf.Clamp(light.range,0, 2);
+            light.range = Mathf.Clamp(light.range,0, range);
         }
     }
     public void SetOn()

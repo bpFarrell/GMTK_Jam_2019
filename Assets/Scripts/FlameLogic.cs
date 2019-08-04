@@ -9,7 +9,7 @@ public enum FlameLogicState
     Jumping,
     Locked
 }
-public class FlameLogic : MonoBehaviour
+public class FlameLogic : SingletonMonoBehaviour<FlameLogic>
 {
     TorchLogic target;
     const float TORCH_OFFSET_Y = 0.3f;
@@ -19,13 +19,10 @@ public class FlameLogic : MonoBehaviour
     TrailRenderer tr;
     public static FlameJump onFlameJump;
     // Start is called before the first frame update
-    private void OnEnable() 
-
-    {
-    }
+    private void OnEnable(){ }
+    
     private void OnDisable()
     {
-
         RuntimeManager.Play.Enter -= OnAnimationComplete;
         RuntimeManager.Play.Exit -= OnAnimationStart;
     }
