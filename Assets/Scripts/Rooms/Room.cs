@@ -100,7 +100,7 @@ public class Room : MonoBehaviour
 {
     public Transform torchContainer;
     public Transform doorContainer;
-    public Transform floorTransform;
+    public MeshRenderer floorBounds;
 
     public CardinalRooms rooms = new CardinalRooms();
     private IRoomObject[] _roomObjects;
@@ -122,7 +122,7 @@ public class Room : MonoBehaviour
 // Characteristics
     public float size
     {
-        get { return Mathf.Max(floorTransform.localScale.x, floorTransform.localScale.z); }
+        get { return Mathf.Max(floorBounds.bounds.size.x, floorBounds.bounds.size.z); }
     }
 
     private void OnDrawGizmos()
@@ -142,13 +142,13 @@ public class Room : MonoBehaviour
     public Vector3 FindEdge(COMPASS_DIR dir)
     {
         Vector3 vectorMask = CardinalRooms.GetDir(dir);
-        Vector3 val = new Vector3(vectorMask.x * floorTransform.localScale.x, 0, vectorMask.z * floorTransform.localScale.z);
+        Vector3 val = new Vector3(vectorMask.x * floorBounds.bounds.size.x, 0, vectorMask.z * floorBounds.bounds.size.z);
         return this.transform.position + (val * .5f);
     }
     public Vector3 FindEdge(int dir)
     {
         Vector3 vectorMask = CardinalRooms.GetDir(dir);
-        Vector3 val = new Vector3(vectorMask.x * floorTransform.localScale.x, 0, vectorMask.z * floorTransform.localScale.z);
+        Vector3 val = new Vector3(vectorMask.x * floorBounds.bounds.size.x, 0, vectorMask.z * floorBounds.bounds.size.z);
         return this.transform.position + (val * .5f);
     }
     
