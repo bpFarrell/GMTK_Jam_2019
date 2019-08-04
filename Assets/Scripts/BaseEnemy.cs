@@ -15,7 +15,8 @@ public abstract class BaseEnemy : MonoBehaviour
             return _activeEnemyCount;
         }
         set {
-            _activeEnemyCount = value;
+            _activeEnemyCount = Mathf.Max(value,0);
+
             Debug.Log("Set active enemy count to " + value);
         }
     }
@@ -26,13 +27,13 @@ public abstract class BaseEnemy : MonoBehaviour
         if (registered) return;
         registered = true;
         RuntimeManager.Play.Enter += CheckEnemyCount;
+
     }
 
     private void CheckEnemyCount()
     {
         if (_activeEnemyCount == 0) OnEnemyClear?.Invoke();
     }
-
     private void OnDisable()
     {
         if (!registered) return;

@@ -21,7 +21,11 @@ public class Door : MonoBehaviour, IRoomObject
     {
         BaseEnemy.OnEnemyClear += Unlock;
     }
+    private void OnDisable()
+    {
 
+        BaseEnemy.OnEnemyClear -= Unlock;
+    }
     private void Unlock() {
         locked = false;
         lockedDoor.Open();

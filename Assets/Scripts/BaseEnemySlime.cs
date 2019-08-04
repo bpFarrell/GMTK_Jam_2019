@@ -7,6 +7,7 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
 {
     public float moveSpeed;
     public float jumpSpeed = 5;
+    float jumpOffset;
     Material material;
     public GameObject targat;
     Vector3 dest;
@@ -34,6 +35,7 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
     {
         startY = transform.position.y;
         startScale = transform.localScale.y;
+        jumpOffset = Random.value;
     }
 
     // Update is called once per frame
@@ -46,7 +48,7 @@ public class BaseEnemySlime : BaseEnemy, IRoomObject
             return;
         }
         Vector3 pos = transform.position;
-        float sin = Mathf.Clamp01(Mathf.Sin(Time.time * jumpSpeed)) * 0.1f;
+        float sin = Mathf.Clamp01(Mathf.Sin(Time.time * (jumpSpeed+ jumpOffset))) * 0.1f;
         pos.y = startY;
         if (sin > 0)
         {
